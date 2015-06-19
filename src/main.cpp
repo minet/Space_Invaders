@@ -7,17 +7,17 @@ public:
 	MovementSystem() = default;
 
 	void addEntity(std::shared_ptr<Entity> const &entity) override {
-		assert(entity->have<Position<float>>());
+		assert(entity->have<Position>());
 
 		mEntities.emplace_back(entity);
 	}
 
 	void run() override {
 		for(auto &entity : mEntities) {
-			if(entity->have<Input<float>>()) {
-				auto position = entity->get<Position<float>>();
+			if(entity->have<Input>()) {
+				auto position = entity->get<Position>();
 
-				position.x += entity->get<Input<float>>().displacement;
+				position.x += entity->get<Input>().displacement;
 
 				entity->set(position);
 			}

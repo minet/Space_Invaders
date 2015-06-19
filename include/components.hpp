@@ -15,52 +15,48 @@ struct Component {
 /**
  * @brief Provide a position for an entity
  * 
- * @tparam T Type used
  */
-template<typename T = float>
 struct Position : public Component {
-	Position(T const &_x, T const &_y) :
+	Position(float _x, float _y) :
 		Component(POSITION), x(_x), y(_y) {}
 
 	Position() :
 		Component(POSITION) {}
 
-	T x; //!< Position in x axe
-	T y; //!< Position in y axe
+	float x; //!< Position in x axe
+	float y; //!< Position in y axe
 };
 
 /**
  * @brief Provide a velocity for an entity
  * 
  */
-template<typename T = float>
 struct Velocity : public Component {
-	Velocity(T const &_x, T const &_y) :
+	Velocity(float _x,float _y) :
 		Component(VELOCITY), x(_x), y(_y) {}
 
 	Velocity() :
 		Component(VELOCITY) {}
 
-	T x; //!< Speed in x axe
-	T y; //!< Speed in y axe
+	float x; //!< Speed in x axe
+	float y; //!< Speed in y axe
 };
 
 /**
  * @brief Provide a Axis Aligned Bounding Box for an Entity
  * 
  */
-template<typename T = float>
 struct Aabb : public Component {
-	Aabb(T const _x, T const _y, T const _w, T const _h) :
+	Aabb(float _x,float _y,float _w, float _h) :
 		Component(AABB), x(_x), y(_y), w(_w), h(_h) {}
 
 	Aabb() :
 		Component(AABB) {}
 
-	T x; //!< Position in x axe : upper left
-	T y; //!< Position in y axe
-	T w; //!< Width of Entity
-	T h; //!< Height of Entity
+	float x; //!< Position in x axe : upper left
+	float y; //!< Position in y axe
+	float w; //!< Width of Entity
+	float h; //!< Height of Entity
 };
 
 /**
@@ -81,14 +77,12 @@ struct Sprite : public Component {
 /**
  * @brief Provide a simplified Input to manage Entity controlled by Player
  * 
- * @tparam T = float [description]
  */
-template<typename T = float>
 struct Input : public Component {
 	Input() :
-		Component(INPUT), displacement(T(0)), toShot(false) {}
+		Component(INPUT), displacement(0.f), toShot(false) {}
 
-	T displacement; // Displacement over the X axis
+	float displacement; // Displacement over the X axis
 	bool toShot; // Player wants to shot?
 };
 

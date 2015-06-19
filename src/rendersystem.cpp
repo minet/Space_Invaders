@@ -5,7 +5,7 @@ RenderSystem::RenderSystem(sf::RenderWindow &window) :
 
 void RenderSystem::addEntity(std::shared_ptr<Entity> const &entity) {
 	assert(entity != nullptr);
-	assert(entity->have<Position<float>>());
+	assert(entity->have<Position>());
 	assert(entity->have<Sprite>());
 
 	mEntities.emplace_back(entity);
@@ -13,9 +13,9 @@ void RenderSystem::addEntity(std::shared_ptr<Entity> const &entity) {
 
 void RenderSystem::run() {
 	mReferenceToWindow.clear();
-	
+
 	for(auto &entity : mEntities) {
-		auto position = entity->get<Position<float>>();
+		auto position = entity->get<Position>();
 		auto sprite = entity->get<Sprite>();
 
 		sprite.image->setPosition(position.x, position.y);
