@@ -1,7 +1,10 @@
-#ifndef COMPONENTMANAGER_HPP
-#define COMPONENTMANAGER_HPP
+#ifndef COMPONENT_MANAGER_HPP
+#define COMPONENT_MANAGER_HPP
 
 #include "components.hpp"
+#include <vector>
+#include <algorithm>
+#include <cassert>
 
 /**
  * @brief Let to Manage all components of an Entity
@@ -14,7 +17,7 @@ public:
      * @brief Let to get the component represented by Component Type
      * 
      * @tparam T Component Type	
-     * @return The component
+     * @return the component
      */
     template<typename T>
     T get() {

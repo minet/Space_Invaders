@@ -1,7 +1,8 @@
 #ifndef COMPONENTS_HPP
 #define COMPONENTS_HPP
 
-#include <string>
+#include <memory>
+#include <SFML/Graphics.hpp>
 
 enum ComponentType{POSITION, VELOCITY, AABB, SPRITE, INPUT, IA};
 
@@ -53,6 +54,8 @@ struct Aabb : public Component {
 	Aabb(Position<T> const &_refPosition, T const _w, T const _h) :
 		Component(AABB), refPosition(_refPosition), w(_w), h(_h) {}
 
+	Aabb() : Component(AABB), refPosition(Position<T>()) {}
+
 	Position<T> const &refPosition; //!< If an Entity is move, its bounding box has to be moved as well
 	T w; //!< Width of Entity
 	T h; //!< Height of Entity
@@ -64,10 +67,13 @@ struct Aabb : public Component {
  * 
  */
 struct Sprite : public Component {
-	Sprite(std::string const &_name) : 
-		Component(SPRITE), name(_name) {}
+	Sprite(std::shared_ptr<sf::Shape> &&_image) : 
+		Component(SPRITE), image(_image) {}
 
-	std::string name; //!< Name of an Entity because : Abstraction
+	Sprite() : 
+		Component(SPRITE) {}
+
+	std::shared_ptr<sf::Shape> image; //!< Pointer to a shape drawable by SFML
 };
 
 /**
