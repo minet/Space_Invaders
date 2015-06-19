@@ -6,13 +6,7 @@
 #include <cassert>
 #include <string>
 
-// Permet de savoir quel composant est associé avec tel composant
-enum ComponentType{POSITION, SPRITE, EVENT};
-
-struct Component {
-    Component(ComponentType _type) : type(_type){}
-    ComponentType type;
-};
+#include "../include/componentmanager.hpp"
 
 struct PositionComponent : public Component {
     PositionComponent() : Component(POSITION){}
@@ -47,66 +41,6 @@ struct EventComponent : public Component {
         Component(EVENT), command(_command){}
     std::string command;
 };
-
-/**********************************************************************************************************/
-
-// Le Gestionnaire de Composant qui appartient à l'entité
-class ComponentManager {
-public:
-
-    // Récupère la valeur du composant en fonction du type choisi
-    template<typename T>
-    T get() noexcept {
-        // Le unique_ptr contient un composant que l'on cast vers le type de composant choisi
-        return *static_cast<T*>(getIteratorOfComponent(T())->get());
-    }
-
-    // Modifie la valeur du composant en donnant par copie la nouvelle valeur
-    template<typename T>
-    void set(T const &value) noexcept {
-        auto it(getIteratorOfComponent(T()));
-
-        *static_cast<T*>(getIteratorOfComponent(T())->get()) = value;
-    }
-
-    template<typename T>
-    bool have() noexcept {
-        return getIteratorOfComponent(T()) != std::end(mComponents);
-    }
-
-    // Permet de modifié la valeur en utilisant le constructeur du composant
-    template<typename T, typename ...Args>
-    void set(Args &&...args) noexcept {
-        auto it(getIteratorOfComponent(T()));
-
-       *static_cast<T*>(getIteratorOfComponent(T())->get()) = T(std::forward<Args>(args)...);
-    }
-
-    // Construit un composant de type T avec les arguments
-    template<typename T, typename ...Args>
-    void add(Args &&...args) {
-        mComponents.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
-    }
-
-private:
-    // Permet de récupérer l'iterateur correspondant au type choisi
-    template<typename T>
-    std::vector<std::unique_ptr<Component>>::iterator getIteratorOfComponent(T &&type) noexcept {
-        auto condition = [&type](std::unique_ptr<Component> &component) {
-            if(component->type == type.type)
-                return true;
-            return false;
-        };
-
-        auto it = std::find_if(std::begin(mComponents), std::end(mComponents), condition);
-        return it;
-    };
-
-    std::vector<std::unique_ptr<Component>> mComponents;
-};
-
-// Représente une entité
-using Entity = ComponentManager;
 
 // Permettra de gérer les différents system
 class System {
