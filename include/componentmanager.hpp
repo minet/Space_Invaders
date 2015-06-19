@@ -18,7 +18,7 @@ public:
      */
     template<typename T>
     T get() {
-        return *static_cast<T*>(getIteratorOfComponent(T())->get());
+        return *static_cast<T*>(getIteratorOfComponent<T>()->get());
     }
 
     /**
@@ -28,9 +28,7 @@ public:
      */
     template<typename T>
     void set(T const &value) {
-        auto it(getIteratorOfComponent(T()));
-
-        *static_cast<T*>(getIteratorOfComponent(T())->get()) = value;
+        *static_cast<T*>(getIteratorOfComponent<T>()->get()) = value;
     }
 
 	/**
@@ -40,9 +38,7 @@ public:
      */
     template<typename T, typename ...Args>
     void set(Args &&...args) {
-        auto it(getIteratorOfComponent(T()));
-
-       *static_cast<T*>(getIteratorOfComponent(T())->get()) = T(std::forward<Args>(args)...);
+       *static_cast<T*>(getIteratorOfComponent<T>()->get()) = T(std::forward<Args>(args)...);
     }
 
     /**
@@ -53,16 +49,14 @@ public:
      */
     template<typename T>
     bool have() {
-        return getIteratorOfComponent(T()) != std::end(mComponents);
+        return getIteratorOfComponent<T>() != std::end(mComponents);
     }
-
 
     /**
      * @brief Add an Component Type to the Entity
      * @details assertion if Entity already has this Component
      * 
      * @param args Arguments to build Component
-     * @tparam T Component Type
      */
     template<typename T, typename ...Args>
     void add(Args &&...args) {
@@ -74,13 +68,12 @@ private:
 	/**
 	 * @brief Let to get the iterator of Component
 	 * 
-	 * @param type Component Type
-	 * @return iterator on the ComponentType
+	 * @return iterator on the std::unique_ptr<Component> pointing on Component Type
 	 */
     template<typename T>
-    std::vector<std::unique_ptr<Component>>::iterator getIteratorOfComponent(T &&type) {
-        auto condition = [&type](std::unique_ptr<Component> &component) {
-            if(component->type == type.type)
+    std::vector<std::unique_ptr<Component>>::iterator getIteratorOfComponent() {
+        auto condition = [](std::unique_ptr<Component> &component) {
+            if(component->type == T().type)
                 return true;
             return false;
         };
