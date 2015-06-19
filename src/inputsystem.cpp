@@ -16,7 +16,7 @@ void KeyboardInputSystem::run() {
 }
 
 WebcamInputSystem::WebcamInputSystem() :
-	mCapture(0), mFaceCascade("data/haarcascade_frontalface_alt.xml"), mAverageX(-1.f), mAverageY(-1.f) {}
+	mCapture(0), mFaceCascade("data/haarcascade_frontalface_alt.xml"), mOldAverageX(-1.f), mOldAverageY(-1.f) {}
 
 void WebcamInputSystem::run() {
 	cv::Mat frame;
@@ -29,12 +29,28 @@ void WebcamInputSystem::run() {
 
 	mFaceCascade.detectMultiScale(frame, faces, 1.1, 1, CV_HAAR_SCALE_IMAGE, cv::Size(1, 1));
 
-	
+	if(faces.empty())
+		return;
+
+	auto currentAverageX(0.f);
+	auto currentAverageY(0.f);
 
 	for(auto &face : faces) {
+		currentAverageX += face.x + face.width * 0.5;
+		currentAverageY += face.y + face.height * 0.5;
 		cv::Point center(face.x + face.width * 0.5, face.y + face.height * 0.5);
 		cv::ellipse(frame, center, cv::Size(face.width * 0.5, face.height * 0.5), 0, 0, 360, cv::Scalar(255, 0, 255), 4, 8, 0);
 	}
+
+	currentAverageY /= faces.size();
+	currentAverageX /= faces.size();
+
+	if(mOldAverageX < 0.0) {
+		mOldAverageX = currentAverageX;
+		mOldAverageY = currentAverageY;
+	}
+
+	std::cout << currentAverageX << " " << currentAverageY << "\n";
 
 	imshow("lol", frame);
 
