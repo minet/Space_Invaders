@@ -13,7 +13,7 @@ void Game::create() {
 	auto sprite = std::make_shared<sf::RectangleShape>(sf::Vector2f(120, 50));
 	sprite->setFillColor(sf::Color(255, 127, 63, 255));
 
-	entity->add<Position>(50, 50);
+	entity->add<Position>(375, 50);
 	entity->add<Input>();
 	entity->add<Sprite>(sprite);
 

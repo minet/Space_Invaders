@@ -28,14 +28,7 @@ void WebcamInputSystem::run() {
 	if(mFaceCascade.empty())
 		throw std::runtime_error("Unable to open haarcascad");
 
-	mFaceCascade.detectMultiScale(frame, faces, 1.1, 1, CV_HAAR_SCALE_IMAGE, cv::Size(1, 1));
-
-	if(faces.empty()) {
-		mOldAverageDisplacement = -1.f;
-		input.displacement = 0.f;
-		mEntity->set(input);
-		return;
-	}
+	mFaceCascade.detectMultiScale(frame, faces, 1.5, 2, CV_HAAR_SCALE_IMAGE, cv::Size(1, 1));
 
 	auto currentAverageDisplacement(0.f);
 
@@ -45,16 +38,18 @@ void WebcamInputSystem::run() {
 		cv::ellipse(frame, center, cv::Size(face.width * 0.5, face.height * 0.5), 0, 0, 360, cv::Scalar(255, 0, 255), 4, 8, 0);
 	}
 
-	currentAverageDisplacement /= faces.size();
+	if(!faces.empty()) {
+		currentAverageDisplacement /= faces.size();
 
-	// We are unable to compute displacement
-	if(mOldAverageDisplacement > 0.0) {
-		input.displacement = mOldAverageDisplacement - currentAverageDisplacement;
+		// We are unable to compute displacement
+		if(mOldAverageDisplacement > 0.0) {
+			input.displacement = mOldAverageDisplacement - currentAverageDisplacement;
 
-		mEntity->set(input);
+			mEntity->set(input);
+		}
+
+		mOldAverageDisplacement = currentAverageDisplacement;
 	}
-
-	mOldAverageDisplacement = currentAverageDisplacement;
 
 	imshow("lol", frame);
 
