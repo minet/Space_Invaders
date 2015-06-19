@@ -29,7 +29,6 @@ void WebcamInputSystem::run() {
 		throw std::runtime_error("Unable to open haarcascad");
 
 	mFaceCascade.detectMultiScale(frame, faces, 1.5, 2, CV_HAAR_SCALE_IMAGE, cv::Size(1, 1));
-
 	auto currentAverageDisplacement(0.f);
 
 	for(auto &face : faces) {
