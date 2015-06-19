@@ -57,8 +57,7 @@ public:
 private:
 	cv::VideoCapture mCapture;
 	cv::CascadeClassifier mFaceCascade;
-	float mOldAverageX;
-	float mOldAverageY;
+	float mOldAverageDisplacement;
 };
 
 #endif
