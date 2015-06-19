@@ -51,12 +51,14 @@ struct Velocity : public Component {
  */
 template<typename T = float>
 struct Aabb : public Component {
-	Aabb(Position<T> const &_refPosition, T const _w, T const _h) :
-		Component(AABB), refPosition(_refPosition), w(_w), h(_h) {}
+	Aabb(T const _x, T const _y, T const _w, T const _h) :
+		Component(AABB), x(_x), y(_y), w(_w), h(_h) {}
 
-	Aabb() : Component(AABB), refPosition(Position<T>()) {}
+	Aabb() :
+		Component(AABB) {}
 
-	Position<T> const &refPosition; //!< If an Entity is move, its bounding box has to be moved as well
+	T x; //!< Position in x axe : upper left
+	T y; //!< Position in y axe
 	T w; //!< Width of Entity
 	T h; //!< Height of Entity
 };

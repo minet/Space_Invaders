@@ -1,8 +1,5 @@
 #include "../include/inputsystem.hpp"
 
-InputSystem::InputSystem(sf::RenderWindow &window) :
-	mReferenceToWindow(window) {}
-
 void InputSystem::addEntity(std::shared_ptr<Entity> const &entity) {
 	assert(entity->have<Input<float>>());
 
@@ -14,10 +11,10 @@ void InputSystem::run() {
 		auto input = entity->get<Input<float>>();
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			input.displacement = -5.f;
+			input.displacement = -0.2f;
 
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			input.displacement = 5.f;
+			input.displacement = 0.2f;
 
 		else 
 			input.displacement = 0.f;

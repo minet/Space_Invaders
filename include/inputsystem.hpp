@@ -5,7 +5,7 @@
 
 class InputSystem : public AbstractSystem {
 public:
-	InputSystem(sf::RenderWindow &window);
+	InputSystem() = default;
 
 	void addEntity(std::shared_ptr<Entity> const &entity) override;
 	void run() override;
@@ -13,7 +13,6 @@ public:
 	~InputSystem() = default;
 
 private:
-	sf::RenderWindow &mReferenceToWindow;
 	std::vector<std::shared_ptr<Entity>> mEntities;
 };
 
