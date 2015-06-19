@@ -4,7 +4,7 @@
 #include "system.hpp"
 
 /**
- * @brief Let to draw to screen all entities
+ * @brief Draw to screen all entities
  * 
  */
 class RenderSystem : public AbstractSystem {

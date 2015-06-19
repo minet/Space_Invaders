@@ -37,7 +37,7 @@ int main() {
 
 	game.addSystem(RENDER_SYSTEM, std::make_unique<RenderSystem>(window));
 	game.addSystem(MOVEMENT_SYSTEM, std::make_unique<MovementSystem>());
-	game.addSystem(INPUT_SYSTEM, std::make_unique<InputSystem>());
+	game.addSystem(INPUT_SYSTEM, std::make_unique<WebcamInputSystem>());
 
 	game.create();
 
