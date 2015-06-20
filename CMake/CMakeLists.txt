@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 file(GLOB_RECURSE
 	 source_files
-	 src/*
-	 include/*)
+	 ../src/*
+	 ../include/*)
 
 project(Space_Invaders)
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules" ${CMAKE_MODULE_PATH})
 find_package(OpenCV REQUIRED)
 add_executable(Space_Invaders ${source_files})
 target_link_libraries(Space_Invaders ${OpenCV_LIBS})
