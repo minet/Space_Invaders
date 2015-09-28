@@ -1,5 +1,16 @@
 #include "system.hpp"
 
+bool Iscolliding(Aabb a, Aabb b) {
+
+    if((b.x >= a.x + a.w)      // trop à droite
+     || (b.x + b.w <= a.x) // trop à gauche
+     || (b.y >= a.y + a.h) // trop en bas
+     || (b.y + b.h <= a.y))  // trop en haut
+           return false;
+    else
+           return true;
+}
+
 void CollideSystem::run() {
 
     bool hasbeeninverted = false;
@@ -36,6 +47,7 @@ void CollideSystem::run() {
                     for (auto j = 0u; j < World::world.numberEntities;j++) {
                        if (World::world.hasComponents[j][IA] &&
                            World::world.hasComponents[j][VELOCITY]) {
+
                              World::world.velocities[j].x *= -1;
                              World::world.positions[j].y += 50;
                        }
@@ -43,16 +55,14 @@ void CollideSystem::run() {
                 }
             }
 
-//            for (auto k = 0u; k < World::world.numberEntities;k++) {
- //              if (k!=i && ) {
+            for (auto k = 0u; k < World::world.numberEntities;k++) {
+               if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
+                    deleteEntity(k);
+                    deleteEntity(i);
+                    break;
 
-   //             }
-     //       }
+               }
+            }
         }
     }
-}
-
-
-bool Iscolliding() {
-
 }
