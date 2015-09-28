@@ -1,6 +1,9 @@
 #include "system.hpp"
 
-void KeyboardInputSystem::run() {    
+#include <iostream>
+
+void KeyboardInputSystem::run() {
+    static auto clock = sf::Clock();
     for(auto i = 0u; i < World::world.numberEntities; ++i) {
         if(World::world.used[i] &&
            World::world.hasComponents[i][INPUT]) {
@@ -14,8 +17,10 @@ void KeyboardInputSystem::run() {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
                 input.displacement += 1.f;
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            if(clock.getElapsedTime().asMilliseconds() > 800) {
                 input.toShot = true;
+                clock.restart();
+            }
         }
     }
 }
