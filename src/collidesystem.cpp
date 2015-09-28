@@ -2,6 +2,8 @@
 
 void CollideSystem::run() {
 
+    bool hasbeeninverted = false;
+
     for(auto i = 0u; i < World::world.numberEntities; ++i) {
 
         if (World::world.used[i] &&
@@ -26,23 +28,25 @@ void CollideSystem::run() {
 
             if (World::world.hasComponents[i][IA]) {
 
-                if ((World::world.aabbs[i].x < 0) ||
-                    (World::world.aabbs[i].x > window.getSize().x - World::world.aabbs[i].w)) {
+                if ( (World::world.aabbs[i].x < 0 ||
+                    World::world.aabbs[i].x > window.getSize().x - World::world.aabbs[i].w) &&
+                    !hasbeeninverted) {
 
+                    hasbeeninverted = true;
                     for (auto j = 0u; j < World::world.numberEntities;j++) {
-
-                       if (World::world.hasComponents[j][IA] && World::world.hasComponents[j][VELOCITY]){
+                       if (World::world.hasComponents[j][IA] &&
+                           World::world.hasComponents[j][VELOCITY]) {
                              World::world.velocities[j].x *= -1;
                        }
                     }
                 }
             }
 
-            for (j = 0u; j< World::world.numberEntities;j++) {
-                if (j!=i && ) {
+//            for (auto k = 0u; k < World::world.numberEntities;k++) {
+ //              if (k!=i && ) {
 
-                }
-            }
+   //             }
+     //       }
         }
     }
 }
