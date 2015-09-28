@@ -1,29 +1,59 @@
 #ifndef SYSTEM_HPP
 #define SYSTEM_HPP
 
-#include "componentmanager.hpp"
+#include "world.hpp"
 
-enum SystemType{INPUT_SYSTEM, IA_SYSTEM, ACTION_TO_SHOT_SYSTEM, MOVEMENT_SYSTEM, COLLIDER_SYSTEM, RENDER_SYSTEM, NUMBER_OF_SYSTEMS};
 
 /**
- * @brief Simple System to manage entities in our game
- * 
+ * @brief Draw to screen all entities
+ *
  */
-class AbstractSystem {
+class RenderSystem {
 public:
-	/**
-	 * @brief Add an entity to this system
-	 * @details Implementations for addEntity is let to the user choice, it could be use assertion to avoid mistake
-	 * 
-	 * @param entity
-	 */
-	virtual void addEntity(std::shared_ptr<Entity> const &entity) = 0;
+    RenderSystem(sf::RenderWindow &window);
 
-	/**
-	 * @brief Execute this system
-	 */
-	virtual void run() = 0;
-	virtual ~AbstractSystem() = default;
+    /**
+     * @brief Execute this system
+     */
+    void run();
+
+    ~RenderSystem() = default;
+
+private:
+    sf::RenderWindow &mReferenceToWindow;
+};
+
+/**
+ * @brief This system is used to manage all input in our game
+ */
+class KeyboardInputSystem {
+public:
+    KeyboardInputSystem() = default;
+
+    /**
+     * @brief Execute this system
+     */
+    void run();
+
+    ~KeyboardInputSystem() = default;
+};
+
+class ApplyInputSystem {
+public:
+    ApplyInputSystem() = default;
+
+    void run();
+
+    ~ApplyInputSystem() = default;
+};
+
+class MovementSystem {
+public:
+    MovementSystem() = default;
+
+    void run();
+
+    ~MovementSystem() = default;
 };
 
 #endif

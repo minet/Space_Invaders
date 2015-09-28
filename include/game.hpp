@@ -5,9 +5,7 @@
 
 class Game {
 public:
-	Game();
-
-	void addSystem(SystemType type, std::unique_ptr<AbstractSystem> &&system);
+    Game(sf::RenderWindow &window);
 
 	/**
 	 * @brief Create game entities with components and add them to systems
@@ -21,7 +19,10 @@ public:
 
 	~Game() = default;
 private:
-	std::vector<std::unique_ptr<AbstractSystem>> mSystems;
+    RenderSystem mRenderSystem;
+    KeyboardInputSystem mInputSystem;
+    ApplyInputSystem mApplyInputSystem;
+    MovementSystem mMovementSystem;
 };
 
 #endif

@@ -1,56 +1,35 @@
-#include "../include/inputsystem.hpp"
+#include "system.hpp"
 
-void KeyboardInputSystem::run() {
-	auto input = mEntity->get<Input>();
+void KeyboardInputSystem::run() {    
+    for(auto i = 0u; i < World::world.numberEntities; ++i) {
+        if(World::world.used[i] &&
+           World::world.hasComponents[i][INPUT]) {
+            auto &input = World::world.inputs[i];
+            input.displacement = 0.f;
+            input.toShot = false;
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		input.displacement = -0.2f;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+                input.displacement -= 1.f;
 
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		input.displacement = 0.2f;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+                input.displacement += 1.f;
 
-	else 
-		input.displacement = 0.f;
-
-	mEntity->set(input);
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                input.toShot = true;
+        }
+    }
 }
 
-WebcamInputSystem::WebcamInputSystem() :
-	mCapture(0), mFaceCascade("data/haarcascade_frontalface_alt.xml"), mOldAverageDisplacement(-1.f) {}
+void ApplyInputSystem::run() {
+    for(auto i = 0u; i < World::world.numberEntities; ++i) {
+        if(World::world.used[i] &&
+           World::world.hasComponents[i][INPUT]) {
+            if(World::world.hasComponents[i][VELOCITY])
+                World::world.velocities[i].x = World::world.inputs[i].displacement;
 
-void WebcamInputSystem::run() {
-	cv::Mat frame;
-	static std::vector<cv::Rect> faces;
-	auto input = mEntity->get<Input>();
-
-	mCapture >> frame;
-
-	if(mFaceCascade.empty())
-		throw std::runtime_error("Unable to open haarcascad");
-
-	mFaceCascade.detectMultiScale(frame, faces, 1.5, 2, CV_HAAR_SCALE_IMAGE, cv::Size(1, 1));
-	auto currentAverageDisplacement(0.f);
-
-	for(auto &face : faces) {
-		currentAverageDisplacement += face.x + face.width * 0.5;
-		cv::Point center(face.x + face.width * 0.5, face.y + face.height * 0.5);
-		cv::ellipse(frame, center, cv::Size(face.width * 0.5, face.height * 0.5), 0, 0, 360, cv::Scalar(255, 0, 255), 4, 8, 0);
-	}
-
-	if(!faces.empty()) {
-		currentAverageDisplacement /= faces.size();
-
-		// We are unable to compute displacement
-		if(mOldAverageDisplacement > 0.0) {
-			input.displacement = mOldAverageDisplacement - currentAverageDisplacement;
-
-			mEntity->set(input);
-		}
-
-		mOldAverageDisplacement = currentAverageDisplacement;
-	}
-
-	imshow("lol", frame);
-
-	cv::waitKey(10);
+            if(World::world.hasComponents[i][POSITION])
+                if(World::world.inputs[i].toShot)
+                    createMissile(World::world.positions[i], true);
+        }
+    }
 }

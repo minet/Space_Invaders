@@ -1,26 +1,23 @@
-#include "../include/rendersystem.hpp"
+#include "system.hpp"
 
 RenderSystem::RenderSystem(sf::RenderWindow &window) : 
 	mReferenceToWindow(window) {}
 
-void RenderSystem::addEntity(std::shared_ptr<Entity> const &entity) {
-	assert(entity != nullptr);
-	assert(entity->have<Position>());
-	assert(entity->have<Sprite>());
-
-	mEntities.emplace_back(entity);
-}
-
 void RenderSystem::run() {
 	mReferenceToWindow.clear();
 
-	for(auto &entity : mEntities) {
-		auto position = entity->get<Position>();
-		auto sprite = entity->get<Sprite>();
+    for(auto i(0u); i < World::world.numberEntities; ++i) {
 
-		sprite.image->setPosition(position.x, position.y);
-		mReferenceToWindow.draw(*sprite.image);
-	}
+        if(World::world.used[i] &&
+           World::world.hasComponents[i][POSITION] &&
+           World::world.hasComponents[i][SPRITE]) {
+            auto position = World::world.positions[i];
+            auto sprite = World::world.sprites[i];
+
+            sprite.image->setPosition(position.x, position.y);
+            mReferenceToWindow.draw(*sprite.image);
+        }
+    }
 
 	mReferenceToWindow.display();
 }
