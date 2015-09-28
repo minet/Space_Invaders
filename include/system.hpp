@@ -56,4 +56,12 @@ public:
     ~MovementSystem() = default;
 };
 
+class CollideSystem {
+public:
+    CollideSystem() = default;
+
+    void run();
+
+    ~CollideSystem() = default;
+};
 #endif

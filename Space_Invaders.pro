@@ -11,7 +11,8 @@ SOURCES += \
     src/main.cpp \
     src/rendersystem.cpp \
     src/movementsystem.cpp \
-    src/world.cpp
+    src/world.cpp \
+    src/collidesystem.cpp
 
 QMAKE_CXXFLAGS += -std=c++14
 
