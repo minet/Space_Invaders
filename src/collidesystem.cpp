@@ -49,18 +49,18 @@ void CollideSystem::run() {
                            World::world.hasComponents[j][VELOCITY]) {
 
                              World::world.velocities[j].x *= -1;
-                             World::world.positions[j].y += 50;
+                             World::world.positions[j].y += 10;
                        }
                     }
                 }
             }
 
-            for (auto k = 0u; k < World::world.numberEntities;k++) {
+            for (auto k = 0u; k < World::world.numberEntities; k++) {
+                if(World::world.used[k])
                if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
                     deleteEntity(k);
                     deleteEntity(i);
                     break;
-
                }
             }
         }
