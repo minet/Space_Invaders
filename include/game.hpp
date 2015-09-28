@@ -23,6 +23,7 @@ private:
     KeyboardInputSystem mInputSystem;
     ApplyInputSystem mApplyInputSystem;
     MovementSystem mMovementSystem;
+    CollideSystem mCollideSystem;
 };
 
 #endif

@@ -16,4 +16,5 @@ void Game::run() {
     mInputSystem.run();
     mApplyInputSystem.run();
     mMovementSystem.run();
+    mCollideSystem.run();
 }
