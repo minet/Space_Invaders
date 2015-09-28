@@ -84,6 +84,7 @@ struct Ia {
 	Ia() : 
         toShot(false) {}
 
+    float displacement; // Displacement over the X axis
 	bool toShot; // IA wants to shot
 };
 
