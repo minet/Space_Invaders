@@ -90,7 +90,7 @@ Entity createEnnemy(float x, float y) {
 
     World::world.positions[entity] = Position(x, y);
     World::world.sprites[entity] = Sprite(sprite);
-    World::world.velocities[entity] = Velocity(0.01, 0.0);
+    World::world.velocities[entity] = Velocity(0.1, 0.0);
     World::world.aabbs[entity] = Aabb(World::world.positions[entity].x, World::world.positions[entity].y,
                                       sprite->getSize().x, sprite->getSize().y);
 

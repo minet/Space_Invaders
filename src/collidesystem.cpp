@@ -37,6 +37,7 @@ void CollideSystem::run() {
                        if (World::world.hasComponents[j][IA] &&
                            World::world.hasComponents[j][VELOCITY]) {
                              World::world.velocities[j].x *= -1;
+                             World::world.positions[j].y += 50;
                        }
                     }
                 }
@@ -49,4 +50,9 @@ void CollideSystem::run() {
      //       }
         }
     }
+}
+
+
+bool Iscolliding() {
+
 }
