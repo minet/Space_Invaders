@@ -25,6 +25,6 @@ struct World {
 };
 
 Entity createPlayer();
-Entity createMissile(Position const &position, bool isPlayer);
+Entity createMissile(float x, float y, bool isPlayer);
 
 #endif

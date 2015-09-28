@@ -1,7 +1,7 @@
 #include "game.hpp"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Space_Invaders", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Space_Invaders", sf::Style::Titlebar | sf::Style::Close);
 
     Game game(window);
 

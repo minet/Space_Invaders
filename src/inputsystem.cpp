@@ -27,9 +27,10 @@ void ApplyInputSystem::run() {
             if(World::world.hasComponents[i][VELOCITY])
                 World::world.velocities[i].x = World::world.inputs[i].displacement;
 
-            if(World::world.hasComponents[i][POSITION])
+            if(World::world.hasComponents[i][AABB])
                 if(World::world.inputs[i].toShot)
-                    createMissile(World::world.positions[i], true);
+                    createMissile(World::world.aabbs[i].x + World::world.aabbs[i].w / 2.f,
+                                  World::world.aabbs[i].y, true);
         }
     }
 }

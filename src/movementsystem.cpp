@@ -8,6 +8,11 @@ void MovementSystem::run() {
            World::world.hasComponents[i][POSITION]) {
             World::world.positions[i].x += World::world.velocities[i].x;
             World::world.positions[i].y += World::world.velocities[i].y;
+
+            if(World::world.hasComponents[i][AABB]) {
+                World::world.aabbs[i].x += World::world.velocities[i].x;
+                World::world.aabbs[i].y += World::world.velocities[i].y;
+            }
         }
     }
 }
