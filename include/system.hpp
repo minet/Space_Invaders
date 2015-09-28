@@ -3,6 +3,7 @@
 
 #include "world.hpp"
 
+extern sf::RenderWindow window;
 
 /**
  * @brief Draw to screen all entities

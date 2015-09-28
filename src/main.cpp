@@ -1,8 +1,8 @@
 #include "game.hpp"
 
-int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Space_Invaders", sf::Style::Titlebar | sf::Style::Close);
+sf::RenderWindow window(sf::VideoMode(800, 600), "Space_Invaders", sf::Style::Titlebar | sf::Style::Close);
 
+int main() {
     Game game(window);
 
     game.create();

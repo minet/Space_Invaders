@@ -67,7 +67,7 @@ Entity createMissile(float x, float y, bool isPlayer) {
 
     World::world.positions[entity] = Position(x - sprite->getSize().x / 2, y - sprite->getSize().y);
     World::world.sprites[entity] = Sprite(sprite);
-    World::world.velocities[entity] = Velocity(0, isPlayer ? -3.f : 3.f);
+    World::world.velocities[entity] = Velocity(0, isPlayer ? -1.f : 1.f);
 
     return entity;
 }
