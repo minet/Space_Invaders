@@ -65,4 +65,14 @@ public:
 
     ~CollideSystem() = default;
 };
+
+class IASystem {
+public:
+    IASystem() = default;
+
+    void run();
+
+    ~IASystem() = default;
+};
+
 #endif
