@@ -68,6 +68,31 @@ Entity createMissile(float x, float y, bool isPlayer) {
     World::world.positions[entity] = Position(x - sprite->getSize().x / 2, y - sprite->getSize().y);
     World::world.sprites[entity] = Sprite(sprite);
     World::world.velocities[entity] = Velocity(0, isPlayer ? -1.f : 1.f);
+    World::world.aabbs[entity] = Aabb(World::world.positions[entity].x, World::world.positions[entity].y,
+                                      sprite->getSize().x, sprite->getSize().y);
+
+    return entity;
+}
+
+Entity createEnnemy(float x, float y) {
+    static auto sprite(std::make_shared<sf::RectangleShape>(sf::Vector2f(20, 20)));
+    sprite->setFillColor(sf::Color(255, 0, 0, 255));
+
+    Entity entity = searchGoodPlaceForEntities();
+
+    createEntity(entity);
+
+    World::world.hasComponents[entity][POSITION] = true;
+    World::world.hasComponents[entity][SPRITE] = true;
+    World::world.hasComponents[entity][VELOCITY] = true;
+    World::world.hasComponents[entity][IA] = true;
+    World::world.hasComponents[entity][AABB] = true;
+
+    World::world.positions[entity] = Position(x, y);
+    World::world.sprites[entity] = Sprite(sprite);
+    World::world.velocities[entity] = Velocity(0.01, 0.0);
+    World::world.aabbs[entity] = Aabb(World::world.positions[entity].x, World::world.positions[entity].y,
+                                      sprite->getSize().x, sprite->getSize().y);
 
     return entity;
 }
