@@ -96,3 +96,7 @@ Entity createEnnemy(float x, float y) {
 
     return entity;
 }
+
+void deleteEntity(Entity entity) {
+    World::world.used[entity] = false;
+}

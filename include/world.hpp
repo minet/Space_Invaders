@@ -28,4 +28,6 @@ Entity createPlayer();
 Entity createMissile(float x, float y, bool isPlayer);
 Entity createEnnemy(float x, float y);
 
+void deleteEntity(Entity entity);
+
 #endif
