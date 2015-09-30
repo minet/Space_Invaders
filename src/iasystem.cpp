@@ -6,7 +6,8 @@ bool AnEnnemyIsUnder(Entity i) {
         if (World::world.used[j] &&
             World::world.hasComponents[j][IA] &&
             World::world.hasComponents[j][POSITION] &&
-            !ennemyisunder) {
+            !ennemyisunder &&
+            (j!=i)) {
 
             ennemyisunder = (World::world.positions[i].y < World::world.positions[j].y);
 
