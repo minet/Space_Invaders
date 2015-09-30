@@ -24,6 +24,7 @@ private:
     ApplyInputSystem mApplyInputSystem;
     MovementSystem mMovementSystem;
     CollideSystem mCollideSystem;
+    IASystem mIASystem;
 };
 
 #endif

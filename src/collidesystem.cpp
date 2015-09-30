@@ -50,8 +50,8 @@ void CollideSystem::run() {
                            World::world.hasComponents[j][VELOCITY]) {
 
                              World::world.velocities[j].x *= -1;
-                             World::world.positions[j].y += 100;
-                             World::world.aabbs[j].y += 100;
+                             World::world.positions[j].y += 50;
+                             World::world.aabbs[j].y += 50;
 
                        }
                     }
