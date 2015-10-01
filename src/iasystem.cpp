@@ -6,10 +6,11 @@ bool AnEnnemyIsUnder(Entity i) {
         if (World::world.used[j] &&
             World::world.hasComponents[j][IA] &&
             World::world.hasComponents[j][POSITION] &&
-            !ennemyisunder &&
-            (j!=i)) {
+            !ennemyisunder && (j!=i)) {
 
-            ennemyisunder = (World::world.positions[i].y < World::world.positions[j].y);
+            ennemyisunder = (World::world.aabbs[i].y < World::world.aabbs[j].y) &&
+                            (World::world.aabbs[i].x <= World::world.aabbs[j].x + 2 &&
+                             World::world.aabbs[i].x >= World::world.aabbs[j].x -2);
 
        }
     }
@@ -18,8 +19,10 @@ bool AnEnnemyIsUnder(Entity i) {
 
 void IASystem::run() {
     static auto clock = sf::Clock();
+    int r;
+    srand(time(NULL));
 
-    if(clock.getElapsedTime().asMilliseconds() > 800) {
+    if(clock.getElapsedTime().asMilliseconds() > 1000) {
 
         for(auto i(0u); i < World::world.numberEntities; ++i) {
             if (World::world.used[i] &&
@@ -27,7 +30,9 @@ void IASystem::run() {
                 World::world.hasComponents[i][POSITION]) {
 
                 if (!AnEnnemyIsUnder(i)) {
-                    createMissile(World::world.positions[i].x + 10 , World::world.positions[i].y + World::world.aabbs[i].h + 2, false);
+                    r = rand()%10;
+                    if (r == 0)
+                    createMissile(World::world.aabbs[i].x + World::world.aabbs[i].w / 2, World::world.aabbs[i].y + World::world.aabbs[i].h + 20, false);
                 }
             }
         }
