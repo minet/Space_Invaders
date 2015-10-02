@@ -11,12 +11,13 @@ void Game::create() {
     createPlayer();
 
     for(auto y(0); y < 4; ++y)
-        for(auto x(0); x < 10; ++x)
+        for(auto x(0); x < 4; ++x)
             createEnnemy(25 * (x + 1), 25 * (y + 1));
 }
 
 void Game::run() {
     mInputSystem.run();
+    mIASystem.run();
     mApplyInputSystem.run();
     mMovementSystem.run();
     mCollideSystem.run();

@@ -45,23 +45,27 @@ void CollideSystem::run() {
 
                     hasbeeninverted = true;
                     for (auto j = 0u; j < World::world.numberEntities;j++) {
-                       if (World::world.hasComponents[j][IA] &&
+                       if (World::world.used[i] &&
+                           World::world.hasComponents[j][IA] &&
                            World::world.hasComponents[j][VELOCITY]) {
 
                              World::world.velocities[j].x *= -1;
-                             World::world.positions[j].y += 10;
+                             World::world.positions[j].y += 50;
+                             World::world.aabbs[j].y += 50;
+
                        }
                     }
                 }
             }
 
             for (auto k = 0u; k < World::world.numberEntities; k++) {
-                if(World::world.used[k])
-               if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
-                    deleteEntity(k);
-                    deleteEntity(i);
-                    break;
-               }
+                if(World::world.used[k]) {
+                    if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
+                        deleteEntity(k);
+                        deleteEntity(i);
+                        break;
+                    }
+                }
             }
         }
     }
