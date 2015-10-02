@@ -16,9 +16,9 @@ void Game::create() {
 }
 
 void Game::run() {
-    mRenderSystem.run();
     mInputSystem.run();
     mApplyInputSystem.run();
     mMovementSystem.run();
     mCollideSystem.run();
+    mRenderSystem.run();
 }
