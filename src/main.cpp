@@ -3,6 +3,8 @@
 sf::RenderWindow window(sf::VideoMode(800, 600), "Space_Invaders", sf::Style::Titlebar | sf::Style::Close);
 
 int main() {
+    srand(time(NULL));
+
     Game game(window);
 
     game.create();

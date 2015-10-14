@@ -4,21 +4,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-enum ComponentType{POSITION, VELOCITY, AABB, SPRITE, INPUT, IA, NUMBER_COMPONENTS};
-
-/**
- * @brief Provide a position for an entity
- * 
- */
-struct Position {
-    Position(float _x, float _y) :
-        x(_x), y(_y) {}
-
-    Position() {}
-
-    float x = 0.0f; //!< Position in x axe
-    float y = 0.0f; //!< Position in y axe
-};
+enum ComponentType{VELOCITY, AABB, SPRITE, INPUT, IA, NUMBER_COMPONENTS};
 
 /**
  * @brief Provide a velocity for an entity

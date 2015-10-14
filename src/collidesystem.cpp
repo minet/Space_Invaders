@@ -1,4 +1,5 @@
 #include "system.hpp"
+#include <iostream>
 
 bool Iscolliding(Aabb a, Aabb b) {
 
@@ -18,27 +19,19 @@ void CollideSystem::run() {
     for(auto i = 0u; i < World::world.numberEntities; ++i) {
 
         if (World::world.used[i] &&
-            World::world.hasComponents[i][AABB] &&
-            World::world.hasComponents[i][POSITION]) {
-
+            World::world.hasComponents[i][AABB]) {
             if (World::world.hasComponents[i][INPUT]) {
 
-              if (World::world.aabbs[i].x < 0) {
-
+              if (World::world.aabbs[i].x < 0)
                   World::world.aabbs[i].x = 0;
-                  World::world.positions[i].x = 0;
-               }
 
                if (World::world.aabbs[i].x > window.getSize().x - World::world.aabbs[i].w) {
-
                   World::world.aabbs[i].x = window.getSize().x - World::world.aabbs[i].w;
-                  World::world.positions[i].x = window.getSize().x - World::world.aabbs[i].w;
                }
             }
 
 
             if (World::world.hasComponents[i][IA]) {
-
                 if ( (World::world.aabbs[i].x < 0 ||
                     World::world.aabbs[i].x > window.getSize().x - World::world.aabbs[i].w) &&
                     !hasbeeninverted) {
@@ -48,12 +41,9 @@ void CollideSystem::run() {
                        if (World::world.used[i] &&
                            World::world.hasComponents[j][IA] &&
                            World::world.hasComponents[j][VELOCITY]) {
-
                              World::world.velocities[j].x *= -1;
-                             World::world.positions[j].y += 50;
                              World::world.aabbs[j].y += 50;
-
-                       }
+                        }
                     }
                 }
             }
@@ -63,6 +53,8 @@ void CollideSystem::run() {
                     if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
                         deleteEntity(k);
                         deleteEntity(i);
+
+                        std::cout << i << " " << k << std::endl;
                         break;
                     }
                 }

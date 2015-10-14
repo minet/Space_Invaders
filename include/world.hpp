@@ -10,7 +10,6 @@
 using Entity = unsigned;
 
 struct World {
-    std::vector<Position> positions;
     std::vector<Velocity> velocities;
     std::vector<Aabb> aabbs;
     std::vector<Sprite> sprites;

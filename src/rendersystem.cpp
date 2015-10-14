@@ -9,12 +9,12 @@ void RenderSystem::run() {
     for(auto i(0u); i < World::world.numberEntities; ++i) {
 
         if(World::world.used[i] &&
-           World::world.hasComponents[i][POSITION] &&
+           World::world.hasComponents[i][AABB] &&
            World::world.hasComponents[i][SPRITE]) {
-            auto position = World::world.positions[i];
             auto sprite = World::world.sprites[i];
+            auto aabb = World::world.aabbs[i];
 
-            sprite.image->setPosition(position.x, position.y);
+            sprite.image->setPosition(aabb.x, aabb.y);
             mReferenceToWindow.draw(*sprite.image);
         }
     }
