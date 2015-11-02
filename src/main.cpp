@@ -5,6 +5,14 @@ sf::RenderWindow window(sf::VideoMode(800, 600), "Space_Invaders", sf::Style::Ti
 int main() {
     srand(time(NULL));
 
+    cv::VideoCapture v(0);
+
+    if(!v.isOpened())
+        return 1;
+
+    cv::Mat pic;
+    cv::namedWindow("video", 1);
+
     Game game(window);
 
     game.create();

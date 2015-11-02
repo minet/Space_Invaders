@@ -53,8 +53,6 @@ void CollideSystem::run() {
                     if (k!=i && Iscolliding(World::world.aabbs[i],World::world.aabbs[k])) {
                         deleteEntity(k);
                         deleteEntity(i);
-
-                        std::cout << i << " " << k << std::endl;
                         break;
                     }
                 }

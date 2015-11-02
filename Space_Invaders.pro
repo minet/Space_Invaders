@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 INCLUDEPATH += include
+INCLUDEPATH += /usr/local/include
 
 SOURCES += \
     src/game.cpp \
@@ -17,7 +18,7 @@ SOURCES += \
 
 QMAKE_CXXFLAGS += -std=c++14
 
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_video -lopencv_videoio
 
 HEADERS += \
     include/components.hpp \
