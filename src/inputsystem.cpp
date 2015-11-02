@@ -12,12 +12,12 @@ void KeyboardInputSystem::run() {
             input.toShot = false;
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-                input.displacement -= 1.f;
+                input.displacement -= 3.f;
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-                input.displacement += 1.f;
+                input.displacement += 3.f;
 
-            if(clock.getElapsedTime().asMilliseconds() > 800) {
+            if(clock.getElapsedTime().asMilliseconds() > 2000) {
                 input.toShot = true;
                 clock.restart();
             }

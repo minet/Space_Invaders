@@ -61,7 +61,7 @@ Entity createMissile(float x, float y, bool isPlayer) {
     World::world.hasComponents[entity][AABB] = true;
 
     World::world.sprites[entity] = Sprite(sprite);
-    World::world.velocities[entity] = Velocity(0, isPlayer ? -.1f : .1f);
+    World::world.velocities[entity] = Velocity(0, isPlayer ? -1.5f : 1.5f);
     World::world.aabbs[entity] = Aabb(x - sprite->getSize().x / 2, y - sprite->getSize().y,
                                       sprite->getSize().x, sprite->getSize().y);
 
@@ -82,7 +82,7 @@ Entity createEnnemy(float x, float y) {
     World::world.hasComponents[entity][AABB] = true;
 
     World::world.sprites[entity] = Sprite(sprite);
-    World::world.velocities[entity] = Velocity(0.02, 0.0);
+    World::world.velocities[entity] = Velocity(1, 0.0);
     World::world.aabbs[entity] = Aabb(x, y,
                                       sprite->getSize().x, sprite->getSize().y);
 
