@@ -18,8 +18,7 @@ SOURCES += \
 
 QMAKE_CXXFLAGS += -std=c++14
 
-LIBS += -lsfml-graphics -lsfml-window -lsfml-system -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_video -lopencv_videoio
-
+LIBS += -lsfml-graphics -lsfml-window -lsfml-system
 HEADERS += \
     include/components.hpp \
     include/game.hpp \

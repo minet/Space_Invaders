@@ -2,7 +2,7 @@
 #define SYSTEM_HPP
 
 #include "world.hpp"
-#include <opencv/cv.hpp>
+//#include <opencv/cv.hpp>
 
 extern sf::RenderWindow window;
 

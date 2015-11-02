@@ -16,12 +16,10 @@ void Game::create() {
 }
 
 void Game::run() {
-    static sf::Clock clock;
-
-    mInputSystem.run();
-    mIASystem.run();
-    mApplyInputSystem.run();
-    mMovementSystem.run();
-    mCollideSystem.run();
-    mRenderSystem.run();
+        mInputSystem.run();
+        mIASystem.run();
+        mApplyInputSystem.run();
+        mMovementSystem.run();
+        mCollideSystem.run();
+        mRenderSystem.run();
 }
