@@ -2,6 +2,7 @@
 #define SYSTEM_HPP
 
 #include "world.hpp"
+#include <thread>
 //#include <opencv/cv.hpp>
 
 extern sf::RenderWindow window;
@@ -38,6 +39,23 @@ public:
     void run();
 
     ~KeyboardInputSystem() = default;
+};
+
+class VideoInputSystem {
+public:
+    VideoInputSystem();
+    
+    void run();
+    
+    ~VideoInputSystem();
+
+private:
+    volatile bool mIsRunning = true;
+    volatile bool mEnabled = false;
+    volatile float mDisplacement = 0.0;
+    std::thread mThread;
+
+    void treatEvent();
 };
 
 class ApplyInputSystem {

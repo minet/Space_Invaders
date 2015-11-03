@@ -1,10 +1,8 @@
 #include "game.hpp"
-#include <opencv/cv.hpp>
-
-using namespace cv;
+#include <thread>
 
 sf::RenderWindow window(sf::VideoMode(800, 600), "Space Invaders", sf::Style::Titlebar | sf::Style::Close);
-/*
+
 int main() {
     srand(time(NULL));
 
@@ -32,25 +30,5 @@ int main() {
         }
     }
 
-    return 0;
-}
-*/
-
-int main() {
-    VideoCapture cap(0); // open the default camera
-    if(!cap.isOpened())  // check if we succeeded
-            return -1;
-
-    Mat edges;
-    namedWindow("edges",1);
-
-    for(;;) {
-        Mat frame;
-        cap >> frame; // get a new frame from camera
-        imshow("edges", frame);
-        if(waitKey(30) >= 0) break;
-    }
-
-    // the camera will be deinitialized automatically in VideoCapture destructor
     return 0;
 }
