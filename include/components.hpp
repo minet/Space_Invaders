@@ -47,6 +47,8 @@ struct Sprite {
 
     Sprite() {}
 
+    std::shared_ptr<sf::Texture> texture;
+    std::shared_ptr<sf::Sprite> sprite;
 	std::shared_ptr<sf::Shape> image; //!< Pointer to a shape drawable by SFML
 };
 

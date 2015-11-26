@@ -52,6 +52,7 @@ public:
 private:
     volatile bool mIsRunning = true;
     volatile bool mEnabled = false;
+    volatile bool mShot = false;
     volatile float mDisplacement = 0.0;
     std::thread mThread;
 

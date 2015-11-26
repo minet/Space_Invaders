@@ -7,38 +7,51 @@ void VideoInputSystem::treatEvent() {
     cv::VideoCapture video(0);
     cv::Mat frame, hsv, mask;
 
-    float oldBary = 0.f;
+    float oldBaryX = 0.f;
+    float oldBaryY = 0.f;
     while(mIsRunning) {
         video >> frame;
         cv::imshow("Camera", frame);
         cv::waitKey(10);
 
         cv::cvtColor(frame, hsv, cv::COLOR_BGR2HSV);
-        cv::inRange(hsv, cv::Scalar(0, 0, 128), cv::Scalar(30, 192, 255), mask);
+        cv::inRange(hsv, cv::Scalar(0, 0, 64), cv::Scalar(35, 130, 255), mask);
         cv::imshow("treated image", mask);
 
-        float bary(0.f);
-        int counter(0);
+        float baryX(0.f);
+        float baryY(0.f);
+        int counterX(0);
+        int counterY(0);
         for(auto y = 0; y < mask.size().height; ++y)
             for(auto x = 0; x < mask.size().width; ++x)
                 if(mask.ptr()[y * mask.size().width + x] == 0) {
-                    ++counter;
-                    bary += x;
+                    ++counterX;
+                    ++counterY;
+                    baryY += y;
+                    baryX += x;
                 }
 
-        if(counter != 0)
-            bary /= counter;
+        if(counterX != 0)
+            baryX /= counterX;
 
-        float speed = bary - oldBary;
-        oldBary = bary;
+        if(counterY != 0)
+            baryY /= counterY;
 
-        if(fabs(speed) > 5)
-            mDisplacement = -speed / 2.;
+        float speedX = baryX - oldBaryX;
+        oldBaryX = baryX;
+
+        float speedY = baryY - oldBaryY;
+        oldBaryY = baryY;
+
+        if(fabs(speedX) > 0)
+            mDisplacement = -speedX;
 
         else
             mDisplacement = 0.f;
 
-        std::cout << speed << std::endl;
+        if(fabs(speedY) > 10)
+            mShot = true;
+        std::cout << speedY << std::endl;
     }
 }
 
@@ -53,20 +66,15 @@ VideoInputSystem::~VideoInputSystem() {
 }
 
 void VideoInputSystem::run() {
-    static auto clock = sf::Clock();
-
     for(auto i = 0u; i < World::world.numberEntities; ++i) {
         if(World::world.used[i] &&
            World::world.hasComponents[i][INPUT]) {
             auto &input = World::world.inputs[i];
 
             input.displacement = mDisplacement;
-            input.toShot = false;
-
-            if(clock.getElapsedTime().asMilliseconds() > 2000) {
-                input.toShot = true;
-                clock.restart();
-            }
+            input.toShot = mShot;
+            if(input.toShot)
+                mShot = false;
         }
     }
 }

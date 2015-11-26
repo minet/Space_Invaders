@@ -20,8 +20,8 @@ public:
 	~Game() = default;
 private:
     RenderSystem mRenderSystem;
-    //KeyboardInputSystem mInputSystem;
-    VideoInputSystem mInputSystem;
+    KeyboardInputSystem mInputSystem;
+    //VideoInputSystem mInputSystem;
     ApplyInputSystem mApplyInputSystem;
     MovementSystem mMovementSystem;
     CollideSystem mCollideSystem;
